@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Listening & Considerations</title>
+    <style>
+        :root {
+            /* Brand Palette */
+            --primary: #513873;      /* Deep Purple */
+            --primary-dark: #413659; /* Dark Slate */
+            --accent: #9C7F9D;       /* Muted Rose */
+            --highlight: #C6B4D9;    /* Light Lavender */
+            --bg: #F9FAFB;           /* Clean Off-White */
+            --text-main: #333333;
+            --text-light: #666666;
+            --white: #ffffff;
+            --tab-inactive: #E2E8F0;
+            --border-color: #CBD5E0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #EEF2F6;
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            overflow: hidden; 
+        }
+
+        /* --- Compact Layout --- */
+        .app-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 220px; /* Reduced width */
+            background-color: var(--primary-dark);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            padding-top: 1rem; /* Added padding since header is gone */
+        }
+
+        .nav-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0; /* Remove gap for continuous border */
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.8);
+            padding: 1rem 1.5rem; 
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid transparent;
+            border-bottom: 1px solid rgba(255,255,255,0.1); /* White separator line */
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--white);
+        }
+
+        .nav-btn.active {
+            background: rgba(81, 56, 115, 0.6);
+            color: var(--white);
+            border-left-color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* SVG Icon styling within nav */
+        .nav-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* --- Main Content --- */
+        .main-content {
+            flex-grow: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            background-color: var(--bg);
+        }
+
+        .content-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .content-header h1 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* --- Cards --- */
+        .section-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            border: 1px solid #E2E8F0;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .section-card h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .section-card p, .section-card li {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        /* --- Icons in Content --- */
+        .icon-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .icon-block {
+            flex: 1;
+            text-align: center;
+            background: #F8F9FA;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        
+        .icon-circle {
+            width: 40px;
+            height: 40px;
+            background: rgba(81, 56, 115, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px auto;
+            color: var(--primary);
+        }
+
+        .icon-circle svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--primary);
+        }
+
+        /* --- Tabs (Enhanced Style) --- */
+        .tabs-container { 
+            margin-top: 1.5rem; 
+        }
+        
+        .tab-headers { 
+            display: flex; 
+            gap: 4px; 
+            border-bottom: 1px solid var(--border-color); 
+            margin-bottom: 0; /* Tabs sit directly on content */
+            padding-left: 10px;
+        }
+        
+        .tab-link {
+            padding: 10px 20px;
+            background: var(--tab-inactive);
+            border: 1px solid var(--border-color);
+            border-bottom: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            border-radius: 8px 8px 0 0; /* Rounded top corners */
+            margin-bottom: -1px; /* Overlap the bottom border */
+            position: relative;
+            top: 1px;
+            transition: background 0.2s;
+        }
+        
+        .tab-link:hover { 
+            background: #D1D5DB; 
+        }
+        
+        .tab-link.active { 
+            background: var(--white); 
+            color: var(--primary); 
+            border-color: var(--border-color);
+            border-bottom: 1px solid var(--white); /* Hide separation line */
+            z-index: 2;
+        }
+        
+        .tab-pane { 
+            display: none; 
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-top: none; /* Header handles the top border */
+            background: var(--white);
+            border-radius: 0 0 8px 8px; /* Rounded bottom corners */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+        
+        .tab-pane.active { 
+            display: block; 
+            animation: fadeIn 0.3s; 
+        }
+
+        .tab-pane ul {
+            margin-top: 0;
+            padding-left: 20px;
+        }
+        
+        .tab-pane li {
+            margin-bottom: 8px;
+        }
+
+        /* --- Quiz Buttons --- */
+        .choice-btn {
+            display: block;
+            width: 100%;
+            background: var(--white);
+            border: 2px solid #E2E8F0;
+            color: var(--text-main);
+            padding: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            margin-bottom: 0.8rem;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+        .choice-btn:hover { border-color: var(--highlight); background: #fafafa; }
+        .feedback-box { margin-top: 1rem; padding: 1rem; border-radius: 6px; font-size: 0.95rem; display: none; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .app-container { flex-direction: column; overflow: auto; }
+            .sidebar { width: 100%; height: auto; padding: 0.5rem; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+            .nav-items { flex-direction: row; gap: 5px; width: 100%; justify-content: center; }
+            .nav-btn { padding: 10px; border-bottom: none; border-radius: 4px; }
+            .nav-btn span:last-child { display: none; } /* Hide text on mobile, show icon only */
+            .main-content { padding: 1rem; }
+            .icon-row { flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <nav class="sidebar">
+        <div class="nav-items">
+            <button class="nav-btn active" onclick="loadContent('overview')">
+                <span class="nav-icon" id="icon-overview-nav"></span> <span>Overview</span>
+            </button>
+            <button class="nav-btn" onclick="loadContent('safety')">
+                <span class="nav-icon" id="icon-safety-nav"></span> <span>Safety</span>
+            </button>
+            <button class="nav-btn" onclick="loadContent('privacy')">
+                <span class="nav-icon" id="icon-privacy-nav"></span> <span>Privacy</span>
+            </button>
+            <button class="nav-btn" onclick="loadContent('confidentiality')">
+                <span class="nav-icon" id="icon-lock-nav"></span> <span>Confidentiality</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div id="content-display" class="content-wrapper">
+            <!-- Content Injected Here -->
+        </div>
+    </main>
+</div>
+
+<script>
+    // --- Icons (SVG Paths) ---
+    const icons = {
+        ear: `<svg viewBox="0 0 24 24"><path d="M12 2C7.03 2 3 6.03 3 11v2c0 2.21 1.79 4 4 4h1v3h3v-3h1c1.1 0 2-.9 2-2V7.5c0-1.16-.62-2.18-1.54-2.74C13.23 3.65 14.65 3 16 3c2.76 0 5 2.24 5 5v5c0 1.66-1.34 3-3 3h-2v2h2c2.76 0 5-2.24 5-5V8c0-3.31-2.69-6-6-6zm-6 11c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>`,
+        shield: `<svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>`,
+        eye: `<svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>`,
+        lock: `<svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>`,
+        check: `<svg viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>`
+    };
+
+    // Render Nav Icons
+    document.getElementById('icon-overview-nav').innerHTML = icons.ear;
+    document.getElementById('icon-safety-nav').innerHTML = icons.shield;
+    document.getElementById('icon-privacy-nav').innerHTML = icons.eye;
+    document.getElementById('icon-lock-nav').innerHTML = icons.lock;
+
+    // --- Content Data (Plain English & AU Spelling) ---
+    const contentData = {
+        overview: `
+            <div class="content-header">
+                <h1>Active Listening</h1>
+                <p class="subtitle">When you listen to a client, you need to do three checks in your head at the same time.</p>
+            </div>
+            
+            <div class="section-card">
+                <h3>The 3 Checks</h3>
+                <p>When someone starts to tell you their story, stop what you are doing. Listen to them. Do not interrupt. Check these three things immediately:</p>
+                
+                <div class="icon-row">
+                    <div class="icon-block">
+                        <div class="icon-circle">${icons.shield}</div>
+                        <strong>1. Safety</strong><br>
+                        <span style="font-size:0.85rem; color:#666;">Is anyone in danger now?</span>
+                    </div>
+                    <div class="icon-block">
+                        <div class="icon-circle">${icons.eye}</div>
+                        <strong>2. Privacy</strong><br>
+                        <span style="font-size:0.85rem; color:#666;">Is the room quiet and private?</span>
+                    </div>
+                    <div class="icon-block">
+                        <div class="icon-circle">${icons.lock}</div>
+                        <strong>3. Confidentiality</strong><br>
+                        <span style="font-size:0.85rem; color:#666;">Can I keep this secret?</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: right;">
+                <button onclick="loadContent('safety')" style="background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;">Start: Safety Check &rarr;</button>
+            </div>
+        `,
+        safety: `
+            <div class="content-header">
+                <h1>1. Safety</h1>
+                <p class="subtitle">Your first job is to make sure no one gets hurt. This is called "Work Health and Safety".</p>
+            </div>
+
+            <div class="section-card">
+                <h3>Your Safety First</h3>
+                <p>You cannot help anyone if you are hurt. If the person using violence is in the room, or you feel unsafe, you must leave or get help. Follow your workplace safety rules.</p>
+            </div>
+            
+            <div class="section-card">
+                <h3>Client Safety</h3>
+                <p>Listen carefully. Is the client in danger right now?</p>
+                
+                <div class="tabs-container">
+                    <div class="tab-headers">
+                        <button class="tab-link active" onclick="switchTab(event, 'do')">✅ What To Do</button>
+                        <button class="tab-link" onclick="switchTab(event, 'dont')">❌ What To Avoid</button>
+                    </div>
+                    <div id="do" class="tab-pane active">
+                        <ul>
+                            <li>Ask: "Do you feel safe right now?"</li>
+                            <li>Ask: "Is it safe for you to talk here?"</li>
+                            <li>Believe them. Do not judge.</li>
+                        </ul>
+                    </div>
+                    <div id="dont" class="tab-pane">
+                        <ul>
+                            <li><strong>Do not</strong> play detective.</li>
+                            <li><strong>Do not</strong> ask for proof (like bruises).</li>
+                            <li><strong>Do not</strong> ask "Why do you stay?" (This makes them feel judged).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        `,
+        privacy: `
+            <div class="content-header">
+                <h1>2. Privacy</h1>
+                <p class="subtitle">Privacy is about the room and respect. You cannot listen well if others can hear.</p>
+            </div>
+
+            <div class="section-card">
+                <h3>Check the Room</h3>
+                <p>Look around. Can other people hear you?</p>
+
+                <div style="background: #F8F9FA; padding: 15px; border-radius: 6px; border-left: 3px solid var(--accent); margin-top: 10px;">
+                    <strong>Example:</strong> A colleague comes to your desk. It is a busy office.
+                    <br><br>
+                    <strong>Action:</strong> Stop them gently. Say: <em>"I want to hear this, but this isn't a private place. Let's go to a meeting room where no one can hear us."</em>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h3>Respect their Space</h3>
+                <ul>
+                    <li><strong>Physical Privacy:</strong> A quiet room with a closed door.</li>
+                    <li><strong>Personal Dignity:</strong> Treat their story with respect. It is not office gossip.</li>
+                </ul>
+            </div>
+        `,
+        confidentiality: `
+            <div class="content-header">
+                <h1>3. Confidentiality</h1>
+                <p class="subtitle">This means keeping information private. But there are laws that say when you <em>must</em> tell someone.</p>
+            </div>
+
+            <div class="section-card">
+                <h3>Do Not Promise Secrecy</h3>
+                <p>Never say "I promise I won't tell anyone."</p>
+                <p>Instead, say: <em>"I will keep this private, unless I need to tell someone to keep you or a child safe."</em></p>
+            </div>
+
+            <div class="section-card">
+                <h3>When You Must Tell (Breaching Confidentiality)</h3>
+                <p>You must share information with authorities if:</p>
+                <ul style="color: #C53030;">
+                    <li><strong>A child is at risk</strong> of harm.</li>
+                    <li><strong>There is a threat to life</strong> (suicide or killing someone).</li>
+                    <li><strong>A court orders</strong> you to give them the file.</li>
+                </ul>
+            </div>
+        `
+    };
+
+    // --- Logic ---
+    const contentDisplay = document.getElementById('content-display');
+    const navButtons = document.querySelectorAll('.nav-btn');
+
+    function loadContent(key) {
+        // Simple fade out/in
+        contentDisplay.style.opacity = '0';
+        setTimeout(() => {
+            contentDisplay.innerHTML = contentData[key];
+            contentDisplay.style.opacity = '1';
+        }, 150);
+
+        // Update Active Nav
+        navButtons.forEach(btn => btn.classList.remove('active'));
+        const activeBtn = Array.from(navButtons).find(b => b.getAttribute('onclick').includes(key));
+        if(activeBtn) activeBtn.classList.add('active');
+    }
+
+    window.switchTab = function(e, tabId) {
+        const container = e.target.closest('.tabs-container');
+        container.querySelectorAll('.tab-link').forEach(b => b.classList.remove('active'));
+        container.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+        
+        e.target.classList.add('active');
+        container.querySelector('#' + tabId).classList.add('active');
+    };
+
+    // Init
+    loadContent('overview');
+
+</script>
+</body>
+</html>
