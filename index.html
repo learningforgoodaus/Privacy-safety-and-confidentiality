@@ -19,15 +19,15 @@
 
         * { box-sizing: border-box; }
 
+        /* REMOVED BACKGROUND COLOR AND FIXED HEIGHT HERE */
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #EEF2F6;
+            background-color: transparent; 
             margin: 0;
             padding: 0;
             color: var(--text-main);
-            /* Tightened height */
-            min-height: auto; 
-            display: flex;
+            display: block; 
+            overflow: hidden;
         }
 
         .app-container { 
@@ -35,14 +35,15 @@
             width: 100%; 
             flex-direction: row; 
             align-items: stretch;
+            background-color: var(--bg);
             border-radius: 8px;
             overflow: hidden;
-            border: 1px solid #ddd; /* Adds a clean border around the tool */
+            border: 1px solid #ddd;
         }
 
         /* --- Sidebar --- */
         .sidebar {
-            width: 180px; /* Slimmed down width */
+            width: 180px;
             background-color: var(--primary-dark);
             color: var(--white);
             display: flex;
@@ -77,8 +78,9 @@
         /* --- Main Content --- */
         .main-content { 
             flex-grow: 1; 
-            padding: 1.2rem; /* Reduced padding */
+            padding: 1.2rem;
             background-color: var(--bg); 
+            min-height: 250px; /* Minimum space for the content area */
         }
 
         .content-wrapper { max-width: 100%; transition: opacity 0.2s; }
@@ -88,7 +90,7 @@
             border-radius: 8px;
             padding: 1.2rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-bottom: 0.5rem; /* Reduced margin */
+            margin-bottom: 0.5rem;
             border: 1px solid #E2E8F0;
         }
 
@@ -97,7 +99,7 @@
             flex: 1; 
             text-align: center; 
             background: #F8F9FA; 
-            padding: 0.8rem; /* Reduced padding */
+            padding: 0.8rem;
             border-radius: 8px; 
             border: 1px solid #eee;
             font-size: 0.8rem;
@@ -105,7 +107,6 @@
 
         /* --- Responsive --- */
         @media (max-width: 768px) {
-            body { display: block; }
             .app-container { flex-direction: column; }
             .sidebar { width: 100%; flex-direction: row; }
             .nav-btn { flex: 1; padding: 12px 5px; justify-content: center; border-left: none; border-bottom: 3px solid transparent; }
@@ -144,7 +145,7 @@
             <span class="nav-icon" id="n3"></span> <span>Privacy</span>
         </button>
         <button class="nav-btn" onclick="loadContent('confidentiality')">
-            <span class="nav-icon" id="n4"></span> <span>Privacy</span>
+            <span class="nav-icon" id="n4"></span> <span>Confidentiality</span>
         </button>
     </nav>
 
