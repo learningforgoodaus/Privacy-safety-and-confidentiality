@@ -12,8 +12,13 @@
             --bg: #F9FAFB;
             --text-main: #333333;
             --white: #ffffff;
-            --tab-inactive: #E2E8F0;
             --border-color: #CBD5E0;
+            
+            /* Branding Shades */
+            --shade-1: #513873;
+            --shade-2: #644a85;
+            --shade-3: #775c97;
+            --shade-4: #8a6ea9;
         }
 
         * { box-sizing: border-box; }
@@ -48,9 +53,8 @@
         }
 
         .nav-btn {
-            background: transparent;
             border: none;
-            color: rgba(255,255,255,0.8);
+            color: var(--white);
             padding: 0.8rem 1rem;
             text-align: left;
             cursor: pointer;
@@ -59,29 +63,36 @@
             align-items: center;
             gap: 10px;
             border-left: 4px solid transparent;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: background 0.3s;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: opacity 0.2s;
         }
 
+        /* Applying shades to desktop and mobile */
+        .nav-btn:nth-child(1) { background-color: var(--shade-1); }
+        .nav-btn:nth-child(2) { background-color: var(--shade-2); }
+        .nav-btn:nth-child(3) { background-color: var(--shade-3); }
+        .nav-btn:nth-child(4) { background-color: var(--shade-4); }
+
+        .nav-btn:hover { opacity: 0.9; }
+
         .nav-btn.active {
-            background: rgba(81, 56, 115, 0.6);
-            color: var(--white);
             border-left-color: var(--highlight);
             font-weight: 600;
+            background-color: var(--primary-dark) !important;
         }
 
         .nav-icon svg { width: 18px; height: 18px; fill: currentColor; }
 
         .main-content { 
             flex-grow: 1; 
-            padding: 1rem;
+            padding: 1.5rem;
             background-color: var(--bg); 
         }
 
         .section-card {
             background: var(--white);
             border-radius: 8px;
-            padding: 1rem;
+            padding: 1.2rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             margin-bottom: 0.5rem;
             border: 1px solid #E2E8F0;
@@ -98,53 +109,6 @@
             font-size: 0.75rem;
         }
 
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            .app-container { flex-direction: column; border: none; }
-            .sidebar { 
-                width: 100%; 
-                flex-direction: row; 
-                background-color: transparent; 
-            }
-            .nav-btn { 
-                flex: 1; 
-                padding: 12px 5px; 
-                justify-content: center; 
-                border-left: none; 
-                border-bottom: 4px solid transparent;
-                color: white;
-            }
-            
-            /* Distinct shades of brand colors for mobile tabs */
-            .nav-btn:nth-child(1) { background-color: #513873; } /* Primary */
-            .nav-btn:nth-child(2) { background-color: #644a85; } /* Lighter Shade 1 */
-            .nav-btn:nth-child(3) { background-color: #775c97; } /* Lighter Shade 2 */
-            .nav-btn:nth-child(4) { background-color: #8a6ea9; } /* Lighter Shade 3 */
-
-            .nav-btn.active { 
-                border-bottom-color: var(--highlight); 
-                background-color: var(--primary-dark) !important; 
-            }
-            .nav-btn span:last-child { display: none; }
-            .icon-row { flex-direction: column; }
-            
-            .main-content { padding: 15px 10px; }
-        }
-
-        .tab-headers { display: flex; gap: 4px; border-bottom: 2px solid var(--border-color); }
-        .tab-link {
-            padding: 8px 12px;
-            background: var(--tab-inactive);
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 4px 4px 0 0;
-            font-size: 0.75rem;
-        }
-        .tab-link.active { background: var(--primary); color: white; }
-        .tab-pane { display: none; padding: 0.8rem; background: white; border: 1px solid var(--border-color); border-top: none; border-radius: 0 0 4px 4px; font-size: 0.85rem; }
-        .tab-pane.active { display: block; }
-
         .instruction-text {
             text-align: center;
             color: var(--primary);
@@ -154,6 +118,33 @@
             border: 2px dashed var(--highlight);
             border-radius: 8px;
             margin-top: 15px;
+        }
+
+        ul.simple-list {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        ul.simple-list li {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .app-container { flex-direction: column; border: none; }
+            .sidebar { width: 100%; flex-direction: row; }
+            .nav-btn { 
+                flex: 1; 
+                padding: 12px 5px; 
+                justify-content: center; 
+                border-left: none; 
+                border-bottom: 4px solid transparent;
+            }
+            .nav-btn.active { border-bottom-color: var(--highlight); }
+            .nav-btn span:last-child { display: none; }
+            .icon-row { flex-direction: column; }
+            .main-content { padding: 15px 10px; }
         }
     </style>
 </head>
@@ -216,12 +207,10 @@
         safety: `
             <h3 style="color:var(--primary); margin:0 0 8px 0;">1. Safety</h3>
             <div class="section-card">
-                <div class="tab-headers">
-                    <button class="tab-link active" onclick="switchTab(event, 'do')">Do</button>
-                    <button class="tab-link" onclick="switchTab(event, 'dont')">Avoid</button>
-                </div>
-                <div id="do" class="tab-pane active"><ul><li>Ask: "Do you feel safe?"</li><li>Believe them.</li></ul></div>
-                <div id="dont" class="tab-pane"><ul><li>Don't judge.</li><li>Don't ask "Why stay?"</li></ul></div>
+                <ul class="simple-list">
+                    <li>Ask: "Do you feel safe?"</li>
+                    <li>Believe them</li>
+                </ul>
             </div>
         `,
         privacy: `
@@ -241,14 +230,6 @@
         const btn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick').includes(key));
         if(btn) btn.classList.add('active');
     }
-
-    window.switchTab = function(e, id) {
-        const parent = e.target.closest('.section-card');
-        parent.querySelectorAll('.tab-link').forEach(b => b.classList.remove('active'));
-        parent.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-        e.target.classList.add('active');
-        document.getElementById(id).classList.add('active');
-    };
 
     loadContent('overview');
 </script>
