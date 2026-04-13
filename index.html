@@ -67,7 +67,7 @@
             transition: opacity 0.2s;
         }
 
-        /* Applying shades to desktop and mobile */
+        /* Consistent branding shades for tabs */
         .nav-btn:nth-child(1) { background-color: var(--shade-1); }
         .nav-btn:nth-child(2) { background-color: var(--shade-2); }
         .nav-btn:nth-child(3) { background-color: var(--shade-3); }
@@ -120,17 +120,11 @@
             margin-top: 15px;
         }
 
-        ul.simple-list {
-            margin: 10px 0;
-            padding-left: 20px;
-            list-style-type: disc;
-        }
-        
-        ul.simple-list li {
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            line-height: 1.4;
+        .card-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
             color: var(--text-main);
+            margin: 0;
         }
 
         @media (max-width: 768px) {
@@ -209,20 +203,16 @@
         safety: `
             <h3 style="color:var(--primary); margin:0 0 8px 0;">1. Safety</h3>
             <div class="section-card">
-                <p style="margin-bottom: 5px; font-weight: 600;">Ask:</p>
-                <ul class="simple-list">
-                    <li>"Do you feel safe?"</li>
-                    <li>"Believe them"</li>
-                </ul>
+                <p class="card-text">Ask, "Do you feel safe?" and believe them.</p>
             </div>
         `,
         privacy: `
             <h3 style="color:var(--primary); margin:0 0 8px 0;">2. Privacy</h3>
-            <div class="section-card"><p>Ensure the room is private. Move if people can overhear.</p></div>
+            <div class="section-card"><p class="card-text">Ensure the room is private. Move if people can overhear.</p></div>
         `,
         confidentiality: `
             <h3 style="color:var(--primary); margin:0 0 8px 0;">3. Confidentiality</h3>
-            <div class="section-card"><p>Explain that you must report risks to children or threats to life.</p></div>
+            <div class="section-card"><p class="card-text">Explain that you must report risks to children or threats to life.</p></div>
         `
     };
 
