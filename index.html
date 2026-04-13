@@ -123,12 +123,14 @@
         ul.simple-list {
             margin: 10px 0;
             padding-left: 20px;
+            list-style-type: disc;
         }
         
         ul.simple-list li {
             margin-bottom: 8px;
             font-size: 0.9rem;
             line-height: 1.4;
+            color: var(--text-main);
         }
 
         @media (max-width: 768px) {
@@ -207,9 +209,10 @@
         safety: `
             <h3 style="color:var(--primary); margin:0 0 8px 0;">1. Safety</h3>
             <div class="section-card">
+                <p style="margin-bottom: 5px; font-weight: 600;">Ask:</p>
                 <ul class="simple-list">
-                    <li>Ask: "Do you feel safe?"</li>
-                    <li>Believe them</li>
+                    <li>"Do you feel safe?"</li>
+                    <li>"Believe them"</li>
                 </ul>
             </div>
         `,
